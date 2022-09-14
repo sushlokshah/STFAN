@@ -1,11 +1,11 @@
 argparse
 easydict
-json
+# json
 numpy
 matplotlib
 scipy
-torch>=1.0.0
+torch==1.4.0
 torchvision
 opencv-python
-pprint
+# pprint
 tensorboardX
