@@ -33,7 +33,7 @@ __C.DIR.OUT_PATH = './output'
 
 if cfg.DATASET.DATASET_NAME == 'VideoDeblur':
     __C.DIR.DATASET_JSON_FILE_PATH = './datasets/VideoDeblur.json'
-    __C.DIR.DATASET_ROOT = '/data/DeepVideoDeblurringDataset/'
+    __C.DIR.DATASET_ROOT = 'data/DeepVideoDeblurring_Dataset/'
     __C.DIR.IMAGE_BLUR_PATH = os.path.join(__C.DIR.DATASET_ROOT,'%s/%s/input/%s.jpg')
     __C.DIR.IMAGE_CLEAR_PATH = os.path.join(__C.DIR.DATASET_ROOT,'%s/%s/GT/%s.jpg')
 # real
