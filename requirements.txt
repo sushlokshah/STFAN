@@ -9,3 +9,7 @@ torchvision
 opencv-python
 # pprint
 tensorboardX
+# run these two commands in the environment to install pyXER without any error
+# sudo apt-get install openexr
+# sudo apt-get install libopenexr-dev
+pyexr==0.3.10
