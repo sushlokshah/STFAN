@@ -58,6 +58,10 @@ def train(cfg, init_epoch, dataset_loader, train_transforms, val_transforms,
             vggnet = torch.nn.DataParallel(vggnet).cuda()
 
         for seq_idx, (_, seq_blur, seq_clear) in enumerate(train_data_loader):
+            # stack initialization
+            h_t = torch.tensor([])
+            out_images = torch.tensor([])
+
             # Measure data time
             data_time.update(time() - batch_end_time)
             # Get data from data loader
@@ -129,6 +133,13 @@ def train(cfg, init_epoch, dataset_loader, train_transforms, val_transforms,
                     result = torchvision.utils.make_grid(result, nrow=1, normalize=True)
                     train_writer.add_image('STFANet/TRAIN_RESULT' + str(batch_idx + 1), result, epoch_idx + 1)
 
+
+                # append last feature tensor and image tensor
+                temp_fea = torch.unsqueeze(output_fea, 0)
+                h_t = torch.cat((h_t, temp_fea), 0)
+                temp_img = torch.unsqueeze(output_img, 0)
+                out_images = torch.cat((out_images, temp_img), 0)
+
                 # *** Update output_last_img/feature ***
                 last_img_blur = img_blur_hold
                 output_last_img = output_img.clamp(0.0, 1.0).detach()
@@ -137,6 +148,10 @@ def train(cfg, init_epoch, dataset_loader, train_transforms, val_transforms,
             # print per sequence
             print('[TRAIN] [Epoch {0}/{1}] [Seq {2}/{3}] ImgPSNR_avg {4}\n'
                   .format(epoch_idx + 1, cfg.TRAIN.NUM_EPOCHES, seq_idx + 1, seq_num, img_PSNRs.avg))
+
+            # save h_t and out_images for each sequence
+            torch.save(h_t, os.path.join(cfg.SAVE.H_T, + './' + str(seq_idx) + '.pt'))
+            torch.save(out_images, os.path.join(cfg.SAVE.OUT_IMAGES, + './' + str(seq_idx) + '.pt'))
 
         # Append epoch loss to TensorBoard
         train_writer.add_scalar('STFANet/EpochPSNR_0_TRAIN', img_PSNRs.avg, epoch_idx + 1)

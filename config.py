@@ -93,3 +93,10 @@ __C.TEST.VISUALIZATION_NUM              = 10
 __C.TEST.PRINT_FREQ                     = 5
 if __C.NETWORK.PHASE == 'test':
     __C.CONST.TEST_BATCH_SIZE           = 1
+
+
+
+# save config
+__C.SAVE                                = edict()
+__C.SAVE.H_T                            = './output_vars/h_t'
+__C.SAVE.OUT_IMAGES                     = './output_vars/out_images'
