@@ -106,16 +106,19 @@ class DeblurNet(nn.Module):
         conv3_d = self.conv3_1(conv2_d)
         conv3_d = self.conv3_3(self.conv3_2(conv3_d))
 
+        print("conv3_d.shape", conv3_d.shape)
+        print("kernel_warp.shape", kernel_deblur.shape)
         conv3_d_k = self.kconv_deblur(conv3_d, kernel_deblur)
-
+        print("conv3_d_k.shape", conv3_d_k.shape)
         # encoder last_clear
         if output_last_fea is None:
             output_last_fea = torch.cat([conv3_d, conv3_d],1)
 
         output_last_fea = self.fea(output_last_fea)
-
+        print("output_last_fea.shape", output_last_fea.shape)
+        print("kernel_warp.shape", kernel_warp.shape)
         conv_a_k = self.kconv_warp(output_last_fea, kernel_warp)
-
+        print("conv_a_k.shape", conv_a_k.shape)
         conv3 = torch.cat([conv3_d_k, conv_a_k],1)
 
         # decoder
