@@ -6,7 +6,7 @@ import numpy as np
 import uuid
 from scipy import misc
 import numpy as np
-import pyexr
+# import pyexr
 import sys
 import cv2
 
@@ -18,7 +18,7 @@ def readgen(file):
     elif file.endswith('.png'): return readImage(file)
     elif file.endswith('.jpg'): return readImage(file)
     elif file.endswith('.pfm'): return readPFM(file)[0]
-    elif file.endswith('.exr'): return pyexr.open(file).get() # https://github.com/tvogels/pyexr
+    # elif file.endswith('.exr'): return pyexr.open(file).get() # https://github.com/tvogels/pyexr
     else: raise Exception('don\'t know how to read %s' % file)
 
 def writegen(file, data):

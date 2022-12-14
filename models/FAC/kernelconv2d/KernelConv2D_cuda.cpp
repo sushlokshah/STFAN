@@ -18,9 +18,9 @@ int KernelConv2D_forward_cuda(
         kernel,
         kernel_size,
         output,
-        at::cuda::getCurrentCUDAStream()
+        // at::cuda::getCurrentCUDAStream()
 	//at::globalContext().getCurrentCUDAStream() //for torch 0.4.1
-	//c10::cuda::getCurrentCUDAStream() //for CUDA 10.2+
+	    c10::cuda::getCurrentCUDAStream() //for CUDA 10.2+
 
     );
     if (!success) {

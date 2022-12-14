@@ -88,9 +88,10 @@ def bulid_net(cfg):
                                                                    gamma=cfg.TRAIN.LR_DECAY)
 
     # Summary writer for TensorBoard
-    output_dir = os.path.join(cfg.DIR.OUT_PATH, dt.now().isoformat() + '_' + cfg.NETWORK.DEBLURNETARCH, '%s')
-    log_dir      = output_dir % 'logs'
-    ckpt_dir     = output_dir % 'checkpoints'
+    output_dir = cfg.DIR.OUT_PATH#os.path.join(cfg.DIR.OUT_PATH, dt.now().isoformat() + '_' + cfg.NETWORK.DEBLURNETARCH, '%s')
+    log_dir      = output_dir + "\\logs"
+    ckpt_dir     = output_dir + "\\checkpoints"
+    # print(log_dir)
     train_writer = SummaryWriter(os.path.join(log_dir, 'train'))
     test_writer  = SummaryWriter(os.path.join(log_dir, 'test'))
     print('[INFO] Output_dir： {0}'.format(output_dir[:-2]))
